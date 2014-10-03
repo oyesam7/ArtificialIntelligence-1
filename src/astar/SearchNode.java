@@ -165,7 +165,7 @@ public class SearchNode {
 		if (b.getParent() == null) {
 			return;
 		} else {
-			matrix.get(b.getParent().getY()).set(b.getX(), 'O');
+			matrix.get(b.getY()).set(b.getX(), 'O');
 			updateMatrix(b.getParent());
 		}
 	}
@@ -262,27 +262,11 @@ public class SearchNode {
 			if (matrix.get(y - 1).get(x) != '#' && !isNodeExpanded(x, y - 1)) {// 2
 				open.add(getNode(x, y - 1, n.getG() + 1));
 			}
-			// if (x - 1 >= 0 && (matrix.get(y - 1).get(x - 1) == '.')
-			// && !isNodeExpanded(x - 1, y - 1)) {// 1
-			// open.add(getNode(x - 1, y - 1, n.getG() + 2));
-			// }
-			// if (x + 1 < lx && (matrix.get(y - 1).get(x + 1) == '.')
-			// && !isNodeExpanded(x + 1, y - 1)) {// 3
-			// open.add(getNode(x + 1, y - 1, n.getG() + 2));
-			// }
 		}
 		if (y + 1 < ly) {
 			if (matrix.get(y + 1).get(x) != '#' && !isNodeExpanded(x, y + 1)) {// 7
 				open.add(getNode(x, y + 1, n.getG() + 1));
 			}
-			// if (x - 1 >= 0 && (matrix.get(y + 1).get(x - 1) == '.')
-			// && !isNodeExpanded(x - 1, y - 1)) {// 6
-			// open.add(getNode(x - 1, y - 1, n.getG() + 2));
-			// }
-			// if (x + 1 < lx && (matrix.get(y + 1).get(x + 1) == '.')
-			// && !isNodeExpanded(x + 1, y + 1)) {// 8
-			// open.add(getNode(x + 1, y + 1, n.getG() + 2));
-			// }
 		}
 		if (x - 1 >= 0 && (matrix.get(y).get(x - 1) != '#')
 				&& !isNodeExpanded(x - 1, y)) {// 4
