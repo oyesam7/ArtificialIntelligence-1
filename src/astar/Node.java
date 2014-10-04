@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 /**
  * this Node class has two comparator one compares f value the other compares
- * position value(x:y), so List<Node> can sort by position or f value
+ * position value(x:y), so List[Node] can sort by position or f value
  * 
  * @author GuoJunjun
  *
@@ -14,23 +14,23 @@ public class Node {
 	/**
 	 * f = g + h;
 	 */
-	private int f;
+	protected int f;
 	/**
 	 * g = current node length to A(root)
 	 */
-	private int g;
+	protected int g;
 	/**
 	 * h = current node to B(goal node)
 	 * 
 	 */
-	private int h;
+	protected int h;
 	/**
 	 * x , y node position on the matrix / ArrayList
 	 */
-	private int x, y;
+	protected int x, y;
 
-	private Node parent;
-	private ArrayList<Node> children;
+	protected Node parent;
+	protected ArrayList<Node> children;
 
 	/**
 	 * 

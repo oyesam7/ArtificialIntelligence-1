@@ -8,7 +8,8 @@ package astar;
  */
 public class Test {
 	public static void main(String[] args) {
-		new SearchNode("board-1-4");
+		new GridsWithCost("board-2-1");
+		// new SearchNode("board-1-4");
 		// ArrayList<ArrayList<Character>> matrix;
 		// matrix = sn.getMatrix();
 		// for (int i = 0; i < matrix.size(); i++) {

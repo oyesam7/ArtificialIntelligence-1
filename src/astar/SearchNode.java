@@ -45,7 +45,7 @@ public class SearchNode {
 	 * 
 	 * sorted by lowest F cost
 	 */
-	private ArrayList<Node> open;
+	protected ArrayList<Node> open;
 	/**
 	 * 3. Drop the starting square A from your open list, and add it to a
 	 * “closed list” of squares that you don’t need to look at again for now.
@@ -55,7 +55,7 @@ public class SearchNode {
 	 * 
 	 * CLOSED houses nodes that have already been expanded,
 	 */
-	private ArrayList<Node> closed;
+	protected ArrayList<Node> closed;
 	/**
 	 * [<br>
 	 * y-i1: [x-j1,x-j2,x-j3 ... ]<br>
@@ -64,14 +64,14 @@ public class SearchNode {
 	 * ...<br>
 	 * ]
 	 */
-	private ArrayList<ArrayList<Character>> matrix;
+	protected ArrayList<ArrayList<Character>> matrix;
 	/**
 	 * ax, ay: A starting point; <br>
 	 * bx, by: B Goal point
 	 * 
 	 */
-	private int ax, ay, bx, by;
-	private Node root;
+	protected int ax, ay, bx, by;
+	protected Node root;
 
 	/**
 	 * @param open
@@ -117,12 +117,12 @@ public class SearchNode {
 	 *            root A to current position length
 	 * @return new Node(int x, int y, int g, int h);
 	 */
-	private Node getNode(int x, int y, int g) {
+	protected Node getNode(int x, int y, int g) {
 		int h = Math.abs(x - this.bx) + Math.abs(y - this.by);
 		return new Node(x, y, g, h);
 	}
 
-	private void init() {
+	protected void init() {
 		printMatrix();
 		System.out.println();
 		for (int i = 0; i < matrix.size(); i++) {
@@ -149,7 +149,7 @@ public class SearchNode {
 	/**
 	 * print report information:
 	 */
-	private void printReport() {
+	protected void printReport() {
 		System.out.println("\nposition A(ax,ay): " + ax + ", " + ay);
 		System.out.println("position B(bx,by): " + bx + ", " + by);
 		System.out.println("matrix.size: " + matrix.size() + " x "
@@ -172,7 +172,7 @@ public class SearchNode {
 	/**
 	 * print out matrix
 	 */
-	private void printMatrix() {
+	protected void printMatrix() {
 		for (int i = 0; i < matrix.size(); i++) {
 			for (int j = 0; j < matrix.get(0).size(); j++) {
 				System.out.print(matrix.get(i).get(j).toString() + " ");
@@ -187,7 +187,7 @@ public class SearchNode {
 	 * <br>
 	 *            From Node B trace back to Node A and add the path to matrix
 	 */
-	private void updateMatrix(Node b) {
+	protected void updateMatrix(Node b) {
 		if (b.getParent() == null) {
 			return;
 		} else {
@@ -214,7 +214,7 @@ public class SearchNode {
 	 *         <li>insert route node to A(root) so A become a Tree<br>
 	 *         <li>return B as a leaf of tree A(root)
 	 */
-	private Node agendaLoop() {
+	protected Node agendaLoop() {
 		Node X = null;
 		boolean succeed = false;
 		while (!succeed) {
@@ -238,7 +238,7 @@ public class SearchNode {
 	}
 
 	/* ---------------- recursion method ----------------- */
-	private boolean done;
+	protected boolean done;
 
 	/**
 	 * 
@@ -250,7 +250,7 @@ public class SearchNode {
 	 *            use recursive method to find the right place and insert the
 	 *            Node
 	 */
-	private void insertRecursive(Node n, Node ancestor) {
+	protected void insertRecursive(Node n, Node ancestor) {
 		done = false;
 		recursion(n, ancestor);
 	}
@@ -265,7 +265,7 @@ public class SearchNode {
 	 *            use recursive method to find the right place and insert the
 	 *            Node
 	 */
-	private void recursion(Node n, Node ancestor) {
+	protected void recursion(Node n, Node ancestor) {
 		if (done) return; // done decide when the recursion has to stop
 		if (isChild(n, ancestor)) {
 			n.setParent(ancestor);
@@ -287,7 +287,7 @@ public class SearchNode {
 	 *            use Breadth First Search to find the right place and insert
 	 *            the Node to root A
 	 */
-	private void insertBFS(Node node) {
+	protected void insertBFS(Node node) {
 		Queue<Node> queue = new LinkedList<Node>();
 		queue.add(root);
 		while (queue.size() > 0) {
@@ -312,7 +312,7 @@ public class SearchNode {
 	 * @param parent
 	 * @return true or false
 	 */
-	private boolean isChild(Node child, Node parent) {
+	protected boolean isChild(Node child, Node parent) {
 		int cx, cy, px, py;
 		cx = child.getX();
 		cy = child.getY();
@@ -350,7 +350,7 @@ public class SearchNode {
 	 *         ...<br>
 	 *         ]
 	 */
-	private boolean generateRoute(Node n) {
+	protected boolean generateRoute(Node n) {
 		boolean hasNextRoute = false;
 		int x, y, lx, ly;
 		x = n.getX();
@@ -391,7 +391,7 @@ public class SearchNode {
 	 * @param y
 	 * @return true if grid(x:y) is already in closed list
 	 */
-	private boolean isInClosed(int x, int y) {
+	protected boolean isInClosed(int x, int y) {
 		for (Node node : closed) {
 			if (node.getX() == x && node.getY() == y) {
 				return true;
@@ -406,7 +406,7 @@ public class SearchNode {
 	 * @param y
 	 * @return true if grid(x:y) is already in open list
 	 */
-	private boolean isInOpen(int x, int y) {
+	protected boolean isInOpen(int x, int y) {
 		for (Node node : open) {
 			if (node.getX() == x && node.getY() == y) {
 				return true;
