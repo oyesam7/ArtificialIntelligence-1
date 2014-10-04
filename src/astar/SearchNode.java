@@ -225,8 +225,8 @@ public class SearchNode {
 				if (!isInClosed(X.getX(), X.getY())) {
 					closed.add(X);
 				}
-				// insertRecursive(X, root);// add X to root
-				insertBFS(X);
+				insertRecursive(X, root);// add X to root
+				// insertBFS(X);
 				if (X.getX() == bx && X.getY() == by) {// found B
 					succeed = true;
 				} else {
@@ -236,6 +236,9 @@ public class SearchNode {
 		}
 		return X;
 	}
+
+	/* ---------------- recursion method ----------------- */
+	private boolean done;
 
 	/**
 	 * 
@@ -248,25 +251,41 @@ public class SearchNode {
 	 *            Node
 	 */
 	private void insertRecursive(Node n, Node ancestor) {
-		System.out.println("isChild(n, parent): " + isChild(n, ancestor) + ":"
-				+ n + " P:" + ancestor + " c: " + ancestor.getChildren());
+		done = false;
+		recursion(n, ancestor);
+	}
+
+	/**
+	 * 
+	 * @param n
+	 *            child node
+	 * @param ancestor
+	 *            node
+	 *            <p>
+	 *            use recursive method to find the right place and insert the
+	 *            Node
+	 */
+	private void recursion(Node n, Node ancestor) {
+		if (done) return; // done decide when the recursion has to stop
 		if (isChild(n, ancestor)) {
 			n.setParent(ancestor);
 			ancestor.addChild(n);
-			return;
+			// when the child found its parent the recursion need to stop
+			done = true;
 		} else {
 			for (Node node : ancestor.getChildren()) {
-				insertRecursive(n, node);
+				recursion(n, node);
 			}
 		}
 	}
 
+	/* ---------------- recursion method done----------------- */
 	/**
 	 * 
 	 * @param node
 	 *            <p>
 	 *            use Breadth First Search to find the right place and insert
-	 *            the Node
+	 *            the Node to root A
 	 */
 	private void insertBFS(Node node) {
 		Queue<Node> queue = new LinkedList<Node>();
@@ -276,6 +295,8 @@ public class SearchNode {
 			if (isChild(node, n)) {
 				node.setParent(n);
 				n.addChild(node);
+				// a child always has only one parent, when parent are found
+				// insert is done
 				return;
 			} else {
 				for (Node c : n.getChildren()) {
