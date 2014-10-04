@@ -3,7 +3,14 @@ package astar;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Node {// implements Comparator<Node> {
+/**
+ * this Node class has two comparator one compares f value the other compares
+ * position value(x:y), so List<Node> can sort by position or f value
+ * 
+ * @author GuoJunjun
+ *
+ */
+public class Node {
 	/**
 	 * f = g + h;
 	 */
@@ -140,7 +147,7 @@ public class Node {// implements Comparator<Node> {
 		return 1 + sum;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
@@ -154,6 +161,10 @@ public class Node {// implements Comparator<Node> {
 		// + " parent=" + parent + " chrildren: " + children.size() + " ]";
 	}
 
+	/**
+	 * 
+	 * @return compare value first by position value x then by y
+	 */
 	public static Comparator<Node> getPositionComparator() {
 		return new Comparator<Node>() {
 

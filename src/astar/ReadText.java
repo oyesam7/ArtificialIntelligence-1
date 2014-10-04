@@ -6,13 +6,13 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
- * This class read text and transform it to adjacency matrix!
- * 
- * first step in path finding:
- * 
+ * This static class read text and transform it to adjacency matrix
+ * (ArrayList[ArrayList[Character]])!
+ * <p>
+ * first step in path finding: <br>
  * transform search area to a simple two dimensional ArrayList, Each item in the
  * array represents one of the squares on the grid, and its status is recorded
- * as walkable or unwalkable.
+ * as character.
  * 
  * @author GuoJunjun
  *

@@ -185,13 +185,13 @@ public class SearchNode {
 	 * 
 	 * @param b
 	 * <br>
-	 *            From Node B trace back to Node A and add the route to matrix
+	 *            From Node B trace back to Node A and add the path to matrix
 	 */
 	private void updateMatrix(Node b) {
 		if (b.getParent() == null) {
 			return;
 		} else {
-			matrix.get(b.getY()).set(b.getX(), 'O');
+			matrix.get(b.getY()).set(b.getX(), '+');
 			System.out.println(b);
 			updateMatrix(b.getParent());
 		}

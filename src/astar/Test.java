@@ -1,5 +1,11 @@
 package astar;
 
+/**
+ * a Test class
+ * 
+ * @author GuoJunjun
+ *
+ */
 public class Test {
 	public static void main(String[] args) {
 		new SearchNode("board-1-4");
