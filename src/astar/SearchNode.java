@@ -164,6 +164,7 @@ public class SearchNode {
 		ArrayList<Node> closedCopy = new ArrayList<Node>(closed);
 		Collections.sort(closedCopy, Node.getPositionComparator());
 		System.out.println("closed: " + closedCopy);
+		System.out.println(root.getChildren().get(0).getChildren());
 	}
 
 	private void printMatrix() {
@@ -198,37 +199,35 @@ public class SearchNode {
 		while (!succeed) {
 			if (open == null) {
 				throw new IllegalAccessError("\nopen is empty!\n");
-			}
-			X = open.remove(0); // first X = root ...
-			if (!isInClosed(X.getX(), X.getY())) {
-				closed.add(X);
-			}
-			insertNode(X, root);// add X to root
-			if (X.getX() == bx && X.getY() == by) {// found B
-				succeed = true;
 			} else {
-				generateRoute(X);
+				X = open.remove(0); // first X = root ...
+				if (!isInClosed(X.getX(), X.getY())) {
+					closed.add(X);
+				}
+				insertNode(X, root);// add X to root
+				// System.out.println("insert : " + X);
+				if (X.getX() == bx && X.getY() == by) {// found B
+					succeed = true;
+				} else {
+					generateRoute(X);
+				}
 			}
 		}
 		return X;
 	}
 
 	private void insertNode(Node n, Node parent) {
-		// System.out.println("insert : " + n);
-		// if (n == parent) {
-		// return;
-		// } else {
+		System.out.println("isChild(n, parent): " + isChild(n, parent) + ":"
+				+ n + " " + parent);
 		if (isChild(n, parent)) {
 			n.setParent(parent);
 			parent.addChild(n);
 		} else {
-			if (parent.getChildren() != null) {
-				for (Node node : parent.getChildren()) {
-					insertNode(n, node);
-					return;
-					// }
-				}
+			System.out.println("p: " + parent + " c: " + parent.getChildren());
+			for (Node node : parent.getChildren()) {
+				insertNode(n, node);
 			}
+			return;
 		}
 	}
 
@@ -240,35 +239,38 @@ public class SearchNode {
 		py = parent.getY();
 
 		// if (child.getG() == parent.getG() + 1) {
-		// if (cx + 1 == px || cx - 1 == px || cx == px) {
-		// if (cy + 1 == py || cy - 1 == py || cy == py) {
 		if (((cx == px - 1 || cx == px + 1) && cy == py)
 				|| ((cy == py - 1 || cy == py + 1) && (cx == px))) {
 			return true;
+			// }
 		}
 		return false;
 	}
 
 	/**
-	 * 
 	 * @param Node
-	 *            n <br>
-	 *            Generate: max 4(2,7,4,5) Node & add to open
-	 *            <p>
 	 * 
-	 *            1 2 3<br>
-	 *            4 n 5<br>
-	 *            6 7 8<br>
-	 *            <p>
-	 *            [<br>
-	 *            y-i1: [x-j1,x-j2,x-j3 ... ]<br>
-	 *            y-i2: [ ]<br>
-	 *            y-i3: [ ]<br>
-	 *            ...<br>
-	 *            ]
+	 * @return true if successfully generated next route
+	 *         <p>
 	 * 
+	 * 
+	 *         n <br>
+	 *         Generate: max 4(2,7,4,5) Node & add to open
+	 *         <p>
+	 * 
+	 *         1 2 3<br>
+	 *         4 n 5<br>
+	 *         6 7 8<br>
+	 *         <p>
+	 *         [<br>
+	 *         y-i1: [x-j1,x-j2,x-j3 ... ]<br>
+	 *         y-i2: [ ]<br>
+	 *         y-i3: [ ]<br>
+	 *         ...<br>
+	 *         ]
 	 */
-	private void generateRoute(Node n) {
+	private boolean generateRoute(Node n) {
+		boolean hasNextRoute = false;
 		int x, y, lx, ly;
 		x = n.getX();
 		y = n.getY();
@@ -278,23 +280,28 @@ public class SearchNode {
 			if (matrix.get(y - 1).get(x) != '#' && !isInClosed(x, y - 1)
 					&& !isInOpen(x, y - 1)) {// 2
 				open.add(getNode(x, y - 1, n.getG() + 1));
+				hasNextRoute = true;
 			}
 		}
 		if (y + 1 < ly) {
 			if (matrix.get(y + 1).get(x) != '#' && !isInClosed(x, y + 1)
 					&& !isInOpen(x, y + 1)) {// 7
 				open.add(getNode(x, y + 1, n.getG() + 1));
+				hasNextRoute = true;
 			}
 		}
 		if (x - 1 >= 0 && (matrix.get(y).get(x - 1) != '#')
 				&& !isInClosed(x - 1, y) && !isInOpen(x - 1, y)) {// 4
 			open.add(getNode(x - 1, y, n.getG() + 1));
+			hasNextRoute = true;
 		}
 		if (x + 1 < lx && (matrix.get(y).get(x + 1) != '#')
 				&& !isInClosed(x + 1, y) && !isInOpen(x + 1, y)) {// 5
 			open.add(getNode(x + 1, y, n.getG() + 1));
+			hasNextRoute = true;
 		}
 		Collections.sort(open, Node.getFComparator());
+		return hasNextRoute;
 	}
 
 	private boolean isInClosed(int x, int y) {
