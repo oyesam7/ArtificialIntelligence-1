@@ -3,7 +3,7 @@ package astar;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Node implements Comparator<Node> {
+public class Node {// implements Comparator<Node> {
 	/**
 	 * f = g + h;
 	 */
@@ -132,11 +132,6 @@ public class Node implements Comparator<Node> {
 		this.children.add(child);
 	}
 
-	@Override
-	public int compare(Node o1, Node o2) {
-		return o1.getF() - o2.getF();
-	}
-
 	public int size() {
 		int sum = 0;
 		for (Node child : children) {
@@ -152,10 +147,38 @@ public class Node implements Comparator<Node> {
 	 */
 	@Override
 	public String toString() {
-		return "[x=" + x + " y=" + y + " g=" + g + "]";
+		return "[" + x + ":" + y + "]";
+		// return "[x=" + x + " y=" + y + " g=" + g + "]";
 
 		// return "[ x=" + x + " y=" + y + " f=" + f + " g=" + g + " h=" + h
 		// + " parent=" + parent + " chrildren: " + children.size() + " ]";
 	}
 
+	public static Comparator<Node> getPositionComparator() {
+		return new Comparator<Node>() {
+
+			@Override
+			public int compare(Node o1, Node o2) {
+				if (o1.getX() != o2.getX()) {
+					return o1.getX() - o2.getX();
+				} else {
+					return o1.getY() - o2.getY();
+				}
+			}
+		};
+	}
+
+	/**
+	 * 
+	 * @return compare using F value
+	 */
+	public static Comparator<Node> getFComparator() {
+		return new Comparator<Node>() {
+
+			@Override
+			public int compare(Node o1, Node o2) {
+				return o1.getF() - o2.getF();
+			}
+		};
+	}
 }

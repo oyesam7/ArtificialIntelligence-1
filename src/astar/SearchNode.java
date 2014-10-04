@@ -102,7 +102,7 @@ public class SearchNode {
 	 */
 	public void addtoOpen(Node e) {
 		open.add(e);
-		Collections.sort(open, new Node());
+		Collections.sort(open, Node.getFComparator());
 	}
 
 	/**
@@ -121,12 +121,7 @@ public class SearchNode {
 	}
 
 	private void init() {
-		for (int i = 0; i < matrix.size(); i++) {
-			for (int j = 0; j < matrix.get(0).size(); j++) {
-				System.out.print(matrix.get(i).get(j).toString() + " ");
-			}
-			System.out.println();
-		}
+		printMatrix();
 		System.out.println();
 		for (int i = 0; i < matrix.size(); i++) {
 			for (int j = 0; j < matrix.get(0).size(); j++) {
@@ -145,12 +140,14 @@ public class SearchNode {
 		open.add(root);
 		updateMatrix(agendaLoop());
 		matrix.get(by).set(bx, 'B');// set B back
-		for (int i = 0; i < matrix.size(); i++) {
-			for (int j = 0; j < matrix.get(0).size(); j++) {
-				System.out.print(matrix.get(i).get(j).toString() + " ");
-			}
-			System.out.println();
-		}
+		printMatrix();
+		printReport();
+	}
+
+	/**
+	 * report information:
+	 */
+	private void printReport() {
 		System.out.println("\nposition A(ax,ay): " + ax + ", " + ay);
 		System.out.println("position B(bx,by): " + bx + ", " + by);
 		System.out.println("matrix.size: " + matrix.size() + " x "
@@ -159,6 +156,23 @@ public class SearchNode {
 		System.out.println("open.size(): " + open.size());
 		System.out.println("closed.size(): " + closed.size());
 		System.out.println("root.size: " + root.size());
+
+		ArrayList<Node> openCopy = new ArrayList<Node>(open);
+		Collections.sort(openCopy, Node.getPositionComparator());
+		System.out.println("open: " + openCopy);
+
+		ArrayList<Node> closedCopy = new ArrayList<Node>(closed);
+		Collections.sort(closedCopy, Node.getPositionComparator());
+		System.out.println("closed: " + closedCopy);
+	}
+
+	private void printMatrix() {
+		for (int i = 0; i < matrix.size(); i++) {
+			for (int j = 0; j < matrix.get(0).size(); j++) {
+				System.out.print(matrix.get(i).get(j).toString() + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	private void updateMatrix(Node b) {
@@ -166,6 +180,7 @@ public class SearchNode {
 			return;
 		} else {
 			matrix.get(b.getY()).set(b.getX(), 'O');
+			System.out.println(b);
 			updateMatrix(b.getParent());
 		}
 	}
@@ -185,7 +200,7 @@ public class SearchNode {
 				throw new IllegalAccessError("\nopen is empty!\n");
 			}
 			X = open.remove(0); // first X = root ...
-			if (!isNodeExpanded(X.getX(), X.getY())) {
+			if (!isInClosed(X.getX(), X.getY())) {
 				closed.add(X);
 			}
 			insertNode(X, root);// add X to root
@@ -199,18 +214,19 @@ public class SearchNode {
 	}
 
 	private void insertNode(Node n, Node parent) {
-		if (n == parent) {
-			return;
+		// System.out.println("insert : " + n);
+		// if (n == parent) {
+		// return;
+		// } else {
+		if (isChild(n, parent)) {
+			n.setParent(parent);
+			parent.addChild(n);
 		} else {
-			if (isChild(n, parent)) {
-				n.setParent(parent);
-				parent.addChild(n);
-			} else {
-				if (parent.getChildren() != null) {
-					for (Node node : parent.getChildren()) {
-						insertNode(n, node);
-						return;
-					}
+			if (parent.getChildren() != null) {
+				for (Node node : parent.getChildren()) {
+					insertNode(n, node);
+					return;
+					// }
 				}
 			}
 		}
@@ -223,11 +239,11 @@ public class SearchNode {
 		px = parent.getX();
 		py = parent.getY();
 
-		if (child.getG() == parent.getG() + 1) {
-			if (cx + 1 == px || cx - 1 == px || cx == px) {
-				if (cy + 1 == py || cy - 1 == py || cy == py) {
-				}
-			}
+		// if (child.getG() == parent.getG() + 1) {
+		// if (cx + 1 == px || cx - 1 == px || cx == px) {
+		// if (cy + 1 == py || cy - 1 == py || cy == py) {
+		if (((cx == px - 1 || cx == px + 1) && cy == py)
+				|| ((cy == py - 1 || cy == py + 1) && (cx == px))) {
 			return true;
 		}
 		return false;
@@ -259,28 +275,39 @@ public class SearchNode {
 		ly = matrix.size();
 		lx = matrix.get(0).size();
 		if (y - 1 >= 0) { // '.' movable
-			if (matrix.get(y - 1).get(x) != '#' && !isNodeExpanded(x, y - 1)) {// 2
+			if (matrix.get(y - 1).get(x) != '#' && !isInClosed(x, y - 1)
+					&& !isInOpen(x, y - 1)) {// 2
 				open.add(getNode(x, y - 1, n.getG() + 1));
 			}
 		}
 		if (y + 1 < ly) {
-			if (matrix.get(y + 1).get(x) != '#' && !isNodeExpanded(x, y + 1)) {// 7
+			if (matrix.get(y + 1).get(x) != '#' && !isInClosed(x, y + 1)
+					&& !isInOpen(x, y + 1)) {// 7
 				open.add(getNode(x, y + 1, n.getG() + 1));
 			}
 		}
 		if (x - 1 >= 0 && (matrix.get(y).get(x - 1) != '#')
-				&& !isNodeExpanded(x - 1, y)) {// 4
+				&& !isInClosed(x - 1, y) && !isInOpen(x - 1, y)) {// 4
 			open.add(getNode(x - 1, y, n.getG() + 1));
 		}
 		if (x + 1 < lx && (matrix.get(y).get(x + 1) != '#')
-				&& !isNodeExpanded(x + 1, y)) {// 5
+				&& !isInClosed(x + 1, y) && !isInOpen(x + 1, y)) {// 5
 			open.add(getNode(x + 1, y, n.getG() + 1));
 		}
-		Collections.sort(open, new Node());
+		Collections.sort(open, Node.getFComparator());
 	}
 
-	private boolean isNodeExpanded(int x, int y) {
+	private boolean isInClosed(int x, int y) {
 		for (Node node : closed) {
+			if (node.getX() == x && node.getY() == y) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isInOpen(int x, int y) {
+		for (Node node : open) {
 			if (node.getX() == x && node.getY() == y) {
 				return true;
 			}
