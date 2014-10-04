@@ -2,7 +2,9 @@ package astar;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * To implement the A* algorithm, it is useful to encapsulate search states
@@ -145,7 +147,7 @@ public class SearchNode {
 	}
 
 	/**
-	 * report information:
+	 * print report information:
 	 */
 	private void printReport() {
 		System.out.println("\nposition A(ax,ay): " + ax + ", " + ay);
@@ -167,6 +169,9 @@ public class SearchNode {
 		System.out.println(root.getChildren().get(0).getChildren());
 	}
 
+	/**
+	 * print out matrix
+	 */
 	private void printMatrix() {
 		for (int i = 0; i < matrix.size(); i++) {
 			for (int j = 0; j < matrix.get(0).size(); j++) {
@@ -176,6 +181,12 @@ public class SearchNode {
 		}
 	}
 
+	/**
+	 * 
+	 * @param b
+	 * <br>
+	 *            From Node B trace back to Node A and add the route to matrix
+	 */
 	private void updateMatrix(Node b) {
 		if (b.getParent() == null) {
 			return;
@@ -193,7 +204,17 @@ public class SearchNode {
 		return matrix;
 	}
 
-	public Node agendaLoop() {
+	/**
+	 * 
+	 * @return Node B
+	 *         <p>
+	 * 
+	 *         <li>Loop until the Node B is reached
+	 *         <li>Use open and closed to complete the function<br>
+	 *         <li>insert route node to A(root) so A become a Tree<br>
+	 *         <li>return B as a leaf of tree A(root)
+	 */
+	private Node agendaLoop() {
 		Node X = null;
 		boolean succeed = false;
 		while (!succeed) {
@@ -204,8 +225,8 @@ public class SearchNode {
 				if (!isInClosed(X.getX(), X.getY())) {
 					closed.add(X);
 				}
-				insertNode(X, root);// add X to root
-				// System.out.println("insert : " + X);
+				// insertRecursive(X, root);// add X to root
+				insertBFS(X);
 				if (X.getX() == bx && X.getY() == by) {// found B
 					succeed = true;
 				} else {
@@ -216,21 +237,60 @@ public class SearchNode {
 		return X;
 	}
 
-	private void insertNode(Node n, Node parent) {
-		System.out.println("isChild(n, parent): " + isChild(n, parent) + ":"
-				+ n + " " + parent);
-		if (isChild(n, parent)) {
-			n.setParent(parent);
-			parent.addChild(n);
-		} else {
-			System.out.println("p: " + parent + " c: " + parent.getChildren());
-			for (Node node : parent.getChildren()) {
-				insertNode(n, node);
-			}
+	/**
+	 * 
+	 * @param n
+	 *            child node
+	 * @param ancestor
+	 *            node
+	 *            <p>
+	 *            use recursive method to find the right place and insert the
+	 *            Node
+	 */
+	private void insertRecursive(Node n, Node ancestor) {
+		System.out.println("isChild(n, parent): " + isChild(n, ancestor) + ":"
+				+ n + " P:" + ancestor + " c: " + ancestor.getChildren());
+		if (isChild(n, ancestor)) {
+			n.setParent(ancestor);
+			ancestor.addChild(n);
 			return;
+		} else {
+			for (Node node : ancestor.getChildren()) {
+				insertRecursive(n, node);
+			}
 		}
 	}
 
+	/**
+	 * 
+	 * @param node
+	 *            <p>
+	 *            use Breadth First Search to find the right place and insert
+	 *            the Node
+	 */
+	private void insertBFS(Node node) {
+		Queue<Node> queue = new LinkedList<Node>();
+		queue.add(root);
+		while (queue.size() > 0) {
+			Node n = queue.remove();
+			if (isChild(node, n)) {
+				node.setParent(n);
+				n.addChild(node);
+				return;
+			} else {
+				for (Node c : n.getChildren()) {
+					queue.add(c);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param child
+	 * @param parent
+	 * @return true or false
+	 */
 	private boolean isChild(Node child, Node parent) {
 		int cx, cy, px, py;
 		cx = child.getX();
@@ -238,11 +298,11 @@ public class SearchNode {
 		px = parent.getX();
 		py = parent.getY();
 
-		// if (child.getG() == parent.getG() + 1) {
-		if (((cx == px - 1 || cx == px + 1) && cy == py)
-				|| ((cy == py - 1 || cy == py + 1) && (cx == px))) {
-			return true;
-			// }
+		if (child.getG() == parent.getG() + 1) {
+			if (((cx == px - 1 || cx == px + 1) && cy == py)
+					|| ((cy == py - 1 || cy == py + 1) && (cx == px))) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -304,6 +364,12 @@ public class SearchNode {
 		return hasNextRoute;
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true if grid(x:y) is already in closed list
+	 */
 	private boolean isInClosed(int x, int y) {
 		for (Node node : closed) {
 			if (node.getX() == x && node.getY() == y) {
@@ -313,6 +379,12 @@ public class SearchNode {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true if grid(x:y) is already in open list
+	 */
 	private boolean isInOpen(int x, int y) {
 		for (Node node : open) {
 			if (node.getX() == x && node.getY() == y) {
