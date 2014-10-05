@@ -45,7 +45,7 @@ public class SearchNode {
 	 * 
 	 * sorted by lowest F cost
 	 */
-	protected ArrayList<Node> open;
+	private ArrayList<Node> open;
 	/**
 	 * 3. Drop the starting square A from your open list, and add it to a
 	 * “closed list” of squares that you don’t need to look at again for now.
@@ -55,7 +55,7 @@ public class SearchNode {
 	 * 
 	 * CLOSED houses nodes that have already been expanded,
 	 */
-	protected ArrayList<Node> closed;
+	private ArrayList<Node> closed;
 	/**
 	 * [<br>
 	 * y-i1: [x-j1,x-j2,x-j3 ... ]<br>
@@ -71,58 +71,14 @@ public class SearchNode {
 	 * 
 	 */
 	protected int ax, ay, bx, by;
-	protected Node root;
+	private Node root;
 
 	/**
 	 * @param open
 	 * @param closed
 	 */
 	public SearchNode(String board) {
-		this.open = new ArrayList<Node>();
-		this.closed = new ArrayList<Node>();
 		this.matrix = ReadText.getMatrix(board);
-		init();
-	}
-
-	/**
-	 * @return the open
-	 */
-	public List<Node> getOpen() {
-		return open;
-	}
-
-	/**
-	 * @return the closed
-	 */
-	public List<Node> getClosed() {
-		return closed;
-	}
-
-	/**
-	 * 
-	 * @param e
-	 */
-	public void addtoOpen(Node e) {
-		open.add(e);
-		Collections.sort(open, Node.getFComparator());
-	}
-
-	/**
-	 * 
-	 * @param x
-	 *            current matrix position
-	 * @param y
-	 *            current matrix position
-	 * @param g
-	 *            root A to current position length
-	 * @return new Node(int x, int y, int g, int h);
-	 */
-	protected Node getNode(int x, int y, int g) {
-		int h = Math.abs(x - this.bx) + Math.abs(y - this.by);
-		return new Node(x, y, g, h);
-	}
-
-	protected void init() {
 		printMatrix();
 		System.out.println();
 		for (int i = 0; i < matrix.size(); i++) {
@@ -137,9 +93,25 @@ public class SearchNode {
 				}
 			}
 		}
+		init();
+	}
 
+	/**
+	 * initialise open, closed list and find ax, ay, bx, by values, prepare root
+	 * 
+	 */
+	protected void init() {
+		this.open = new ArrayList<Node>();
+		this.closed = new ArrayList<Node>();
 		root = getNode(ax, ay, 0);
 		open.add(root);
+		run();
+	}
+
+	/**
+	 * run the program
+	 */
+	protected void run() {
 		updateMatrix(agendaLoop());
 		matrix.get(by).set(bx, 'B');// set B back
 		printMatrix();
@@ -166,7 +138,6 @@ public class SearchNode {
 		ArrayList<Node> closedCopy = new ArrayList<Node>(closed);
 		Collections.sort(closedCopy, Node.getPositionComparator());
 		System.out.println("closed: " + closedCopy);
-		System.out.println(root.getChildren().get(0).getChildren());
 	}
 
 	/**
@@ -192,7 +163,6 @@ public class SearchNode {
 			return;
 		} else {
 			matrix.get(b.getY()).set(b.getX(), '+');
-			System.out.println(b);
 			updateMatrix(b.getParent());
 		}
 	}
@@ -312,7 +282,7 @@ public class SearchNode {
 	 * @param parent
 	 * @return true or false
 	 */
-	protected boolean isChild(Node child, Node parent) {
+	private boolean isChild(Node child, Node parent) {
 		int cx, cy, px, py;
 		cx = child.getX();
 		cy = child.getY();
@@ -413,5 +383,43 @@ public class SearchNode {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @return the open
+	 */
+	public List<Node> getOpen() {
+		return open;
+	}
+
+	/**
+	 * @return the closed
+	 */
+	public List<Node> getClosed() {
+		return closed;
+	}
+
+	/**
+	 * 
+	 * @param e
+	 */
+	public void addtoOpen(Node e) {
+		open.add(e);
+		Collections.sort(open, Node.getFComparator());
+	}
+
+	/**
+	 * 
+	 * @param x
+	 *            current matrix position
+	 * @param y
+	 *            current matrix position
+	 * @param g
+	 *            root A to current position length
+	 * @return new Node(int x, int y, int g, int h);
+	 */
+	protected Node getNode(int x, int y, int g) {
+		int h = Math.abs(x - this.bx) + Math.abs(y - this.by);
+		return new Node(x, y, g, h);
 	}
 }

@@ -30,7 +30,7 @@ public class Node {
 	protected int x, y;
 
 	protected Node parent;
-	protected ArrayList<Node> children;
+	private ArrayList<Node> children;
 
 	/**
 	 * 
@@ -44,11 +44,15 @@ public class Node {
 	 *            current node to B(goal node)
 	 */
 	public Node(int x, int y, int g, int h) {
-		children = new ArrayList<Node>();
 		this.x = x;
 		this.y = y;
 		this.g = g;
 		this.h = h;
+		init();
+	}
+
+	protected void init() {
+		children = new ArrayList<Node>();
 		f = g + h;
 	}
 
@@ -139,6 +143,10 @@ public class Node {
 		this.children.add(child);
 	}
 
+	/**
+	 * 
+	 * @return Node size
+	 */
 	public int size() {
 		int sum = 0;
 		for (Node child : children) {

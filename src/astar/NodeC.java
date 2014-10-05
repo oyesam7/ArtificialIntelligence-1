@@ -1,5 +1,6 @@
 package astar;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -27,16 +28,23 @@ public class NodeC extends Node {
 	 * <li>r roads 1
 	 */
 	private char c;
+	private ArrayList<NodeC> children;
 
 	public NodeC(int x, int y, int g, int h, char c) {
 		super(x, y, g, h);
 		this.c = c;
 	}
 
+	@Override
+	protected void init() {
+		children = new ArrayList<NodeC>();
+		f = g + h;
+	}
+
 	/**
 	 * @return cost character (char)
 	 *         <p>
-	 * 
+	 *
 	 *         <li>w water 100
 	 *         <li>m mountains 50
 	 *         <li>f forests 10
@@ -97,5 +105,30 @@ public class NodeC extends Node {
 				return o1.getF() - o2.getF();
 			}
 		};
+	}
+
+	//
+	public ArrayList<NodeC> getcChildren() {
+		return children;
+	}
+
+	/**
+	 * 
+	 * @param child
+	 */
+	public void addChild(NodeC child) {
+		this.children.add(child);
+	}
+
+	/**
+	 * 
+	 * @return Node size
+	 */
+	public int size() {
+		int sum = 0;
+		for (NodeC child : children) {
+			sum += child.size();
+		}
+		return 1 + sum;
 	}
 }
