@@ -37,7 +37,7 @@ public class GridsWithCost extends SearchNode {
 	 * @param y
 	 *            current matrix position
 	 * @param g
-	 *            root A to current position length
+	 *            root A to current position length g(C) = g(P) + arc-cost(P,C)
 	 * @param c
 	 *            grid condition with character w, m, f, g, r
 	 * @return new Node(int x, int y, int g, int h, char c);
@@ -78,24 +78,26 @@ public class GridsWithCost extends SearchNode {
 		y = n.getY();
 		ly = matrix.size();
 		lx = matrix.get(0).size();
-		if (y - 1 >= 0) { // '.' movable
+		if (y - 1 >= 0) {
 			if (!isInClosed(x, y - 1) && !isInOpen(x, y - 1)) {// 2
-				open.add(getNode(x, y - 1, n.getG() + 1, n.getC()));
+				open.add(getNode(x, y - 1, n.getG() + 1,
+						matrix.get(y - 1).get(x)));
 				hasNextRoute = true;
 			}
 		}
 		if (y + 1 < ly) {
 			if (!isInClosed(x, y + 1) && !isInOpen(x, y + 1)) {// 7
-				open.add(getNode(x, y + 1, n.getG() + 1, n.getC()));
+				open.add(getNode(x, y + 1, n.getG() + 1,
+						matrix.get(y + 1).get(x)));
 				hasNextRoute = true;
 			}
 		}
 		if (x - 1 >= 0 && !isInClosed(x - 1, y) && !isInOpen(x - 1, y)) {// 4
-			open.add(getNode(x - 1, y, n.getG() + 1, n.getC()));
+			open.add(getNode(x - 1, y, n.getG() + 1, matrix.get(y).get(x - 1)));
 			hasNextRoute = true;
 		}
 		if (x + 1 < lx && !isInClosed(x + 1, y) && !isInOpen(x + 1, y)) {// 5
-			open.add(getNode(x + 1, y, n.getG() + 1, n.getC()));
+			open.add(getNode(x + 1, y, n.getG() + 1, matrix.get(y).get(x + 1)));
 			hasNextRoute = true;
 		}
 		Collections.sort(open, NodeC.getCostComparator());

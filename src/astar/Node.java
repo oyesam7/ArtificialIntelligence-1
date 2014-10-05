@@ -46,8 +46,8 @@ public class Node {
 	public Node(int x, int y, int g, int h) {
 		this.x = x;
 		this.y = y;
-		this.g = g;
 		this.h = h;
+		this.g = g;
 		init();
 	}
 
@@ -162,7 +162,7 @@ public class Node {
 	 */
 	@Override
 	public String toString() {
-		return "[" + x + ":" + y + "]";
+		return "[" + x + ":" + y + "-" + f + "-" + g + "-" + h + "]";
 		// return "[x=" + x + " y=" + y + " g=" + g + "]";
 
 		// return "[ x=" + x + " y=" + y + " f=" + f + " g=" + g + " h=" + h

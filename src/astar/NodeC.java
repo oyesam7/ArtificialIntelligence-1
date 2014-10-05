@@ -33,6 +33,7 @@ public class NodeC extends Node {
 	public NodeC(int x, int y, int g, int h, char c) {
 		super(x, y, g, h);
 		this.c = c;
+		f += cost();
 	}
 
 	@Override
@@ -84,8 +85,11 @@ public class NodeC extends Node {
 		case 'r':
 			cost = 1;
 			break;
+		case 'B':
+			cost = 0;
+			break;
 		default:
-			System.err.println("ERRER at cost method: charactor not found!");
+			System.err.println("\nERRER at cost method:" + c + " not found!\n");
 		}
 		return cost;
 	}
@@ -99,9 +103,9 @@ public class NodeC extends Node {
 
 			@Override
 			public int compare(NodeC o1, NodeC o2) {
-				if (o1.cost() != o2.cost()) {
-					return o1.cost() - o2.cost();
-				}
+				// if (o1.cost() != o2.cost()) {
+				// return o1.cost() - o2.cost();
+				// }
 				return o1.getF() - o2.getF();
 			}
 		};
