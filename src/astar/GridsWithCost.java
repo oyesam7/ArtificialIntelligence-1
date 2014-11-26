@@ -78,12 +78,9 @@ public class GridsWithCost extends SearchNode {
 		y = n.getY();
 		ly = matrix.size();
 		lx = matrix.get(0).size();
-		if (y - 1 >= 0) {
-			if (!isInClosed(x, y - 1) && !isInOpen(x, y - 1)) {// 2
-				open.add(getNode(x, y - 1, n.getG() + 1,
-						matrix.get(y - 1).get(x)));
-				hasNextRoute = true;
-			}
+		if ((y - 1 >= 0) && (!isInClosed(x, y - 1)) && (!isInOpen(x, y - 1))) {// 2
+			open.add(getNode(x, y - 1, n.getG() + 1, matrix.get(y - 1).get(x)));
+			hasNextRoute = true;
 		}
 		if (y + 1 < ly) {
 			if (!isInClosed(x, y + 1) && !isInOpen(x, y + 1)) {// 7

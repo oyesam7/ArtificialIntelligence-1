@@ -1,4 +1,4 @@
-from simulatedAnnealing import SA
+from sa import SA
 
 class Node:
     M, N, K, board = None, None, None, None
@@ -13,7 +13,7 @@ class Node:
             "Wrong K value!!!"
 
     def F():                                    # objective Function return a evaluated quality in [0,1]:
-
+        
                                                 # horrible, mediocre, promising, excellent and optimal solutions...
                                                 # toward the optimal solution.
 
