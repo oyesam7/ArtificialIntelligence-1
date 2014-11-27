@@ -3,6 +3,49 @@ IntroductionArtificialIntelligence
 
 Introduction to Artificial Intelligence
 ---
+
+Epic Introduction
+--
+####Artificial intelligence:
+- Acting Humanly
+    - if we can't distinguish between a computer and a human, the computer is said to act humanly.
+    - turing test: computer's capability to act humanly
+        - Natural language processing
+        - Konwledge representation
+        - Automated reasoning 
+        - Machine learning
+- Thinking humanly
+- Acting Rationally
+    - An agent is something that acts.
+    - A rational agent is an agent that does the right thing.
+- Thinking rationally
+
+Intelligent Agent
+--
+Agent
+- perceiving its environment through sensors and acting upon that environment through actuators.
+
+Agent function
+
+Rational agent
+- select an action which is expected to maximize performance.
+
+Task environment
+- PEAS  -   Performance, Environment, Actuators, Sensors.
+
+Properties of task environments
+
+```
+Fully Observable    vs      Partially Observable
+Single agent        vs      multiagent
+Deterministic       vs      Stochastic
+Episodic            vs      Sequential
+Static              vs      Dynamic
+Discrete            vs      Continous
+Known               vs      Unknown
+```
+`
+
 Simple reflex agent: 
 - Selects actions on the basis of the current percept, ignoring the rest og the history.
 
@@ -60,7 +103,7 @@ Heuristic:
     - Always understimated -- guarantees that we will find the minimum cost path.
 - Consistency
     - The cost of moving is higher than the reduction in the heuristic. 
-    - The fina estimated cost never decreases.
+    - The final estimated cost never decreases.
 - In grid-search
         - Manhattan distance 
         - Euclidean - The length one would measure with a ruler ( straight line distance )
@@ -70,6 +113,8 @@ Dominance
 Relaxed problems
 - the optimal solution cost of a relaxed problem is no greater than the optimal solution cost of the real problem
 
+Beyond Classical Search
+--
 Local Search
 - All nodes in local search are complete solutions. As the search progresses, solutions will become gradually better. 
 - The path is unimportant; only the final state matters. 
@@ -87,6 +132,8 @@ Local Beam Search:  K parallel searches
 
 Genetic Algorithms
 
+Adversarial Search
+--
 MiniMax
 
 Alpha-Beta Pruning
@@ -97,7 +144,8 @@ Beta
 
 AI Critics
 
-###Constraint Satisfaction Problems
+Constraint Satisfaction Problems
+--
 CSP:
     - a set of variables
     - a set of domains(legal values) for these variables
@@ -122,3 +170,49 @@ Forward checking
 
 Backtracking Search for CSPs
 
+Local Search for CSPs
+
+Logical Agents
+--
+Knowledge base: set of sentences in a formal language.
+
+Logics:
+- Formal languages to represent information so that conclusions might be made.
+
+Syntax:
+- defines how sentences are constructed.
+
+Semantics:
+- the meaning of the sentence.
+
+World:
+- A possible world (model) ...
+
+Entailment:
+- Means that on ething follows from another.
+
+Satisfiable:
+
+Valid:
+
+Number of Models:
+
+Horn Clauses:
+
+Standard logical equivalence
+
+CNF     =   Conjunction Normal Form
+
+Resolution
+
+First-Order Logic
+--
+first order logic contains:
+- objects
+- relations
+- functions
+
+Quantifiers
+
+Inference in First-Order Logic
+--
