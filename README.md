@@ -216,3 +216,96 @@ Quantifiers
 
 Inference in First-Order Logic
 --
+Unification:    Matching a free variable with a constant.
+
+Forward chaining:   Start with base facts and try to find out which facts fires which rule. Stop when the goal is reached.
+
+Backward chaining:  Start with the goal and work the way backward. (a depth-first search).
+
+Conversion to CNF
+
+Classical Planning
+--
+Plan:   a collection of actions for performing some task.
+
+STRIPS
+
+PDDL:       Planning Domain Definition Language
+
+Planning graph
+
+Planning and Acting in the real World
+--
+Critical path method:       the path whose total duration is longest
+
+Knowledge representation
+--
+Knowledge-based system (KBS)
+- is a model of something is the real world (outside the agent). 3 Modeling:
+    - Knowledge engineer    design, builds and tests the 'expert system'
+    - Domain expert         possesses the skill & knowledge to find a solution
+    - End user              the final system should meet the needs of the end user.
+
+- KB represent knowledge using KB langauge, a system encoding knowledge. The inference engine has the ability to find implicit knowledge by reasoning over the explicit knowledge. Decides what kind og conclusions can be drawn. 
+    - Declarative knowledge     Expressed in declarative sentences or indicative propositions.
+    - Procedural knowledge      Knowledge exercised in the performance of soe task.
+    - Domain knowledge          What we reason about
+    - Strategic knowledge       How we reason.
+
+5 roles of knowledge representation:
+     * Surrogate: A representation is a substitute for direct interaction with the world.
+     * All representations are approximations to reality and they are invariably imperfect
+     * Fragmentary theory of Intelligent Reasoning
+     * Is a medium for efficient computation
+     * Is a medium of human expression
+
+Rule based systems (early KBs expert systems)
+- Working memory
+- Rule base
+- Interpreter
+
+KR languages
+- Syntactic
+- Semantic
+- Inferential
+
+Requirements
+- Representation adequacy
+- Inferential adequacy
+- Inferential efficiency
+- Naturalness
+
+Semantic networks
+    - stores knowledge in a graph, with nodes representing objects in the world, and arcs representing relationships between objects. Use inheritance when an object belong to a class.
+
+Inheritance in semantic networks
+
+Natural Language Processing
+--
+    - Knowledge aquisition & language models
+
+Language models:        Grammar,    semantic
+
+N-gram char models
+
+Model evaluation
+
+N-gram word models
+
+Text classification
+
+Information retrieval
+
+Models and IR Scoring functions
+
+Evaluation
+
+Refinements
+
+The HITS algorithm
+
+Question answering
+
+Information Extraction
+- Return useful information from documents.
+
