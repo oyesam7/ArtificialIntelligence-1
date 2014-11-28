@@ -1,10 +1,6 @@
-IntroductionArtificialIntelligence
-==================================
-
 Introduction to Artificial Intelligence
----
-
-Epic Introduction
+==
+Introduction
 --
 ####Artificial intelligence:
 - Acting Humanly
@@ -12,7 +8,7 @@ Epic Introduction
     - turing test: computer's capability to act humanly
         - Natural language processing
         - Konwledge representation
-        - Automated reasoning 
+        - Automated reasoning
         - Machine learning
 - Thinking humanly
 - Acting Rationally
@@ -46,7 +42,7 @@ Known               vs      Unknown
 ```
 `
 
-Simple reflex agent: 
+Simple reflex agent:
 - Selects actions on the basis of the current percept, ignoring the rest og the history.
 
 Model-based reflex agents
@@ -54,15 +50,15 @@ Model-based reflex agents
 Goal-based agents
 
 Utility-based agents:
-- trying to maximize the expected 'happiness'. Needs a utility function to determine what action leads to the heighest performance measuer. 
+- trying to maximize the expected 'happiness'. Needs a utility function to determine what action leads to the heighest performance measuer.
 
 Learning agents: Learn from their actions.
 1. Learning element
     - making improvements
 2. Performance element
     - selecting external actions.
-3. Critic 
-    - give feedback ... 
+3. Critic
+    - give feedback ...
 4. Problem generator
 
 ###Solving Problems by Searching
@@ -86,7 +82,7 @@ Depth-limited search
 Iterative deepening search
 
 Best first search
-- Idea: use an evluation function for each node - estimate of 'desirability'. 
+- Idea: use an evluation function for each node - estimate of 'desirability'.
 - Expand the most desirable unexpanded node. Implementation: nodes are put in a queue sorted in decreasing order of desirability.
 
 Greedy search
@@ -96,16 +92,16 @@ A*
 - A* evaluates nodes with: f(n) = g(n) + h(n)
 
 A* is optimal
-- A* algorithm always expands the node with the lowest f(n) value, and the h(n) value never overestimates, it will never be possible to reach the goal with a lower cost than the cost of the node we're expanding. Therefor, the first node we expand, and turns out to be a solution, will also be the optimal solution. 
+- A* algorithm always expands the node with the lowest f(n) value, and the h(n) value never overestimates, it will never be possible to reach the goal with a lower cost than the cost of the node we're expanding. Therefor, the first node we expand, and turns out to be a solution, will also be the optimal solution.
 
 Heuristic:
 - Admissible
     - Always understimated -- guarantees that we will find the minimum cost path.
 - Consistency
-    - The cost of moving is higher than the reduction in the heuristic. 
+    - The cost of moving is higher than the reduction in the heuristic.
     - The final estimated cost never decreases.
 - In grid-search
-        - Manhattan distance 
+        - Manhattan distance
         - Euclidean - The length one would measure with a ruler ( straight line distance )
 
 Dominance
@@ -116,8 +112,8 @@ Relaxed problems
 Beyond Classical Search
 --
 Local Search
-- All nodes in local search are complete solutions. As the search progresses, solutions will become gradually better. 
-- The path is unimportant; only the final state matters. 
+- All nodes in local search are complete solutions. As the search progresses, solutions will become gradually better.
+- The path is unimportant; only the final state matters.
 - Local search doesn't use heuristics, but a similar concept called **objective functions**. The objective function answers the question "How optimal the solution is".
 
 Hill climbling
@@ -125,7 +121,7 @@ Hill climbling
 - Quick in smooth landscapes.
 
 Simulated Annealing
-- Randomized search for a solution. 
+- Randomized search for a solution.
 - It prioritizes neighbors that improve the situation, accept other neighbors also.
 
 Local Beam Search:  K parallel searches
@@ -205,6 +201,20 @@ CNF     =   Conjunction Normal Form
 
 Resolution
 
+######Standard logical equivalences:
+          (α ∧ β) ≡ (β ∧ α) commutativity of ∧
+          (α ∨ β) ≡ (β ∨ α) commutativity of ∨
+    ((α ∧ β) ∧ γ) ≡ (α ∧ (β ∧ γ)) associativity of ∧
+    ((α ∨ β) ∨ γ) ≡ (α ∨ (β ∨ γ)) associativity of ∨
+            ¬(¬α) ≡ α double-negation elimination
+          (α ⇒ β) ≡ (¬β ⇒ ¬α) contraposition
+          (α ⇒ β) ≡ (¬α ∨ β) implication elimination
+          (α ⇔ β) ≡ ((α ⇒ β) ∧ (β ⇒ α)) biconditional elimination
+         ¬(α ∧ β) ≡ (¬α ∨ ¬β) DeMorgan
+         ¬(α ∨ β) ≡ (¬α ∧ ¬β) DeMorgan
+    (α ∧ (β ∨ γ)) ≡ ((α ∧ β) ∨ (α ∧ γ)) distributivity of ∧ over ∨
+    (α ∨ (β ∧ γ)) ≡ ((α ∨ β) ∧ (α ∨ γ)) distributivity of ∨ over ∧
+
 First-Order Logic
 --
 first order logic contains:
@@ -246,7 +256,7 @@ Knowledge-based system (KBS)
     - Domain expert         possesses the skill & knowledge to find a solution
     - End user              the final system should meet the needs of the end user.
 
-- KB represent knowledge using KB langauge, a system encoding knowledge. The inference engine has the ability to find implicit knowledge by reasoning over the explicit knowledge. Decides what kind og conclusions can be drawn. 
+- KB represent knowledge using KB langauge, a system encoding knowledge. The inference engine has the ability to find implicit knowledge by reasoning over the explicit knowledge. Decides what kind og conclusions can be drawn.
     - Declarative knowledge     Expressed in declarative sentences or indicative propositions.
     - Procedural knowledge      Knowledge exercised in the performance of soe task.
     - Domain knowledge          What we reason about
@@ -308,4 +318,3 @@ Question answering
 
 Information Extraction
 - Return useful information from documents.
-
