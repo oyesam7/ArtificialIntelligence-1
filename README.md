@@ -5,11 +5,12 @@ Introduction
 ####Artificial intelligence:
 - Acting Humanly
     - if we can't distinguish between a computer and a human, the computer is said to act humanly.
-    - turing test: computer's capability to act humanly
+    - **turing test:** computer's capability to act humanly
         - Natural language processing
         - Konwledge representation
         - Automated reasoning
         - Machine learning
+    - turing test is the most known scenario for testing the intelligence of an articial intelligence system.
 - Thinking humanly
 - Acting Rationally
     - An agent is something that acts.
@@ -61,7 +62,8 @@ Learning agents: Learn from their actions.
     - give feedback ...
 4. Problem generator
 
-###Solving Problems by Searching
+3 Solving Problems by Searching
+--
 Search: a process for finding something.
 Uninformed  vs informed
 Partial     vs Complete solutions
@@ -86,10 +88,12 @@ Best first search
 - Expand the most desirable unexpanded node. Implementation: nodes are put in a queue sorted in decreasing order of desirability.
 
 Greedy search
-
-A*
+####3.5.2 A* search: Minimizing the total estimated solution cost
+A* search (A-start search): most widely known best-first search.
 - A* is a form of best-first search where the idea is not to expand 'expensive' paths.
 - A* evaluates nodes with: f(n) = g(n) + h(n)
+    - g(n) the cost from start to reach the node n(start -> n)
+    - h(n) (heuristic function) the cost to get from the node n to the goal (n -> goal)
 
 A* is optimal
 - A* algorithm always expands the node with the lowest f(n) value, and the h(n) value never overestimates, it will never be possible to reach the goal with a lower cost than the cost of the node we're expanding. Therefor, the first node we expand, and turns out to be a solution, will also be the optimal solution.
@@ -109,7 +113,7 @@ Dominance
 Relaxed problems
 - the optimal solution cost of a relaxed problem is no greater than the optimal solution cost of the real problem
 
-Beyond Classical Search
+4 Beyond Classical Search
 --
 Local Search
 - All nodes in local search are complete solutions. As the search progresses, solutions will become gradually better.
@@ -128,23 +132,28 @@ Local Beam Search:  K parallel searches
 
 Genetic Algorithms
 
-Adversarial Search
+5 Adversarial Search
 --
-MiniMax
+####MiniMax
+    is a decision rule used in decision theory, game theory, statistics and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. Originally formulated for two-player zero-sum game theory, covering both the cases where players take alternate moves and those where they make simultaneous moves, it has also been extended to more complex games and to general decision making in the presence of uncertainty.
 
-Alpha-Beta Pruning
+###Alpha-Beta Pruning
+    Alpha Beta purning is a way to make Minmax search much more effective by cut off some path, which will never influence the choice. This is done by assigning provisional values (alpha values at Max nodes, beta values at Min nodes). Only a max node can modify alpha and only Min nodes can modify beta.
+    The alpha and beta values are defined locally at different nodes. They can also be passed in from above. pruning does not affect the final result but can change the efficiency of the search.
 
-Alpha
+**Alpha**
+    Amodifiable property of a Max node.
 
-Beta
+**Beta**
+    a modifiable property of a Min node.
 
 AI Critics
 
-Constraint Satisfaction Problems
+6 Constraint Satisfaction Problems
 --
 CSP:
-    - a set of variables
-    - a set of domains(legal values) for these variables
+    - a set of variables {X1, ..., Xn}
+    - a set of domains(legal values) for these variables {D1,..., Dn}
     - a set of constraint relations between the variables
 
 CSP solutions:
@@ -166,20 +175,37 @@ Forward checking
 
 Backtracking Search for CSPs
 
-Local Search for CSPs
-
-Logical Agents
+###6.4 Local Search for CSPs
+Min-conflicts: 
+    In choosing a new value for a variable, the most obvious heuristic is to select the value that results in the minimum number of conflicts with other variables—the min-conflicts heuristic.
+7 Logical Agents
 --
 Knowledge base: set of sentences in a formal language.
 
 Logics:
 - Formal languages to represent information so that conclusions might be made.
 
-Syntax:
-- defines how sentences are constructed.
+####7.4.1 Syntax:
+- defines how sentences are constructed
+
+**Complex sentences** are constructed from simpler sentences, using parentheses and logical connectives.
+- negation:       ¬ (not). A sentence such as ¬W1,3 is called the negation of W1,3. 
+A literal is either an atomic sentence (a positive literal) or a negated atomic sentence (a negative literal).
+- conjunction:    ∧ (and). A sentence whose main connective is ∧, such as W1,3 ∧ P3,1, is called a conjunction; its parts are the conjuncts. (The ∧ looks like an “A” for “And.”)
+- disjunction:    ∨ (or). A sentence using ∨, such as (W1,3 ∧P3,1)∨W2,2, is a disjunction of the disjuncts (W1,3 ∧ P3,1) and W2,2. (Historically, the ∨ comes from the Latin “vel,” which means “or.” For most people, it is easier to remember ∨ as an upside-down ∧.)
+- implication:    ⇒ (implies). A sentence such as (W1,3 ∧P3,1) ⇒ ¬W2,2 is called an implication (or conditional). Its premise or antecedent is (W1,3 ∧P3,1), and its conclusion or consequent is ¬W2,2. Implications are also known as rules or if–then statements. The implication symbol is sometimes written in other books as ⊃ or →.
+- biconditional:  ⇔ (if and only if). The sentence W1,3 ⇔ ¬W2,2 is a biconditional. Some other books write this as ≡.
+
 
 Semantics:
 - the meaning of the sentence.
+
+five rules for complex sentences, which hold for any subsentences P and Q in any model m (here “iff” means “if and only if”):
+- ¬P    is true iff P is false in m.
+- P ∧ Q is true iff both P and Q are true in m.
+- P ∨ Q is true iff either P or Q is true in m.
+- P ⇒ Q is true unless P is true and Q is false in m.
+- P ⇔ Q is true iff P and Q are both true or both false in m.
 
 World:
 - A possible world (model) ...
@@ -234,7 +260,18 @@ Backward chaining:  Start with the goal and work the way backward. (a depth-firs
 
 Conversion to CNF
 
-Classical Planning
+######Resolution
+The resolution inference rule:
+- The resolution rule for first-order clauses is simply a lifted version of the propositional reso- lution rule given on page 253. Two clauses, which are assumed to be standardized apart so that they share no variables, can be resolved if they contain complementary literals.
+
+        [Animal(F(x)) ∨ Loves(G(x),x)] and [¬Loves(u,v) ∨ ¬Kills(u,v)]
+        
+        by eliminating the complementary literals Loves(G(x),x) and ¬Loves(u,v), with unifier θ = {u/G(x), v/x}, to produce the resolvent clause
+        
+        [Animal(F(x)) ∨ ¬Kills(G(x),x)] 
+    This rule is called the **binary resolution rule** because it resolves exactly two literals
+
+10 Classical Planning
 --
 Plan:   a collection of actions for performing some task.
 
@@ -242,13 +279,20 @@ STRIPS
 
 PDDL:       Planning Domain Definition Language
 
-Planning graph
+###10.3 Planning graphs
+A mutex holds when:
 
-Planning and Acting in the real World
+     * Inconsistent effects: one action negates an effect of the other.
+     * Interference: one of the effects of one action is the negation of a precondition of the
+       other.
+     * Competing needs: one of the preconditions of one action is mutually exclusive with a
+       precondition of the other
+
+11 Planning and Acting in the real World
 --
 Critical path method:       the path whose total duration is longest
 
-Knowledge representation
+12 Knowledge representation
 --
 Knowledge-based system (KBS)
 - is a model of something is the real world (outside the agent). 3 Modeling:
@@ -290,7 +334,7 @@ Semantic networks
 
 Inheritance in semantic networks
 
-Natural Language Processing
+22 Natural Language Processing
 --
     - Knowledge aquisition & language models
 
@@ -302,7 +346,8 @@ Model evaluation
 
 N-gram word models
 
-Text classification
+###22.2 Text classification
+text classification, also known as categorization: given a text of some kind, decide which of a predefined set of classes it belongs to. Language iden- tification and genre classification are examples of text classification, as is **sentiment analysis** (classifying a movie or product review as positive or negative) and spam detection (classify- ing an email message as spam or not-spam).
 
 Information retrieval
 
@@ -316,5 +361,11 @@ The HITS algorithm
 
 Question answering
 
-Information Extraction
+###22.4 Information Extraction
 - Return useful information from documents.
+- Information extraction is the process of acquiring knowledge by skimming a text and look- ing for occurrences of a particular class of object and for relationships among objects.
+
+
+
+Frame language:
+- A frame language is a technology used for knowledge representation in artificial intelligence. Frames are stored as ontologies of sets and subsets of the frame concepts. They are similar to class hierarchies in object-oriented languages although their fundamental design goals are different. Frames are focused on explicit and intuitive representation of knowledge where as objects focus on encapsulation and information hiding. Frames originated in AI research and objects primarily in software engineering. However, in practice the techniques and capabilities of frame and object-oriented languages overlap significantly.
