@@ -1,8 +1,12 @@
 Introduction to Artificial Intelligence
 ==
+
+AI is the study of agents that receive percepts from the environment and perform actions. Each such agent implements a function that maps percept that maps percept sequences to actions, and there are different ways to represent these functions, such as rective agents, real-time planners, and decision-theoretic systems.
 Introduction
 --
+We call ourselves Homo sapiens—man the wise—because our intelligence is so important to us. For thousands of years, we have tried to understand how we think; that is, how a mere handful of matter can perceive, understand, predict, and manipulate a world far larger and more complicated than itself. The field of artificial intelligence, or AI, goes further still: it attempts not just to understand but also to build intelligent entities.
 ####Artificial intelligence:
+Four approaches to artificial intelligent:
 - Acting Humanly
     - if we can't distinguish between a computer and a human, the computer is said to act humanly.
     - **turing test:** computer's capability to act humanly
@@ -23,6 +27,7 @@ Agent
 - perceiving its environment through sensors and acting upon that environment through actuators.
 
 Agent function
+- maps any given percept sequence to an action.
 
 Rational agent
 - select an action which is expected to maximize performance.
@@ -315,7 +320,9 @@ Knowledge-based system (KBS)
 
 Rule based systems (early KBs expert systems)
 - Working memory
+    - contains facts about the world, observed directly or derived from a rule.
 - Rule base
+    - contains rules, where each rule is a stop i a problem solving process
 - Interpreter
 
 KR languages
@@ -347,7 +354,7 @@ Model evaluation
 N-gram word models
 
 ###22.2 Text classification
-text classification, also known as categorization: given a text of some kind, decide which of a predefined set of classes it belongs to. Language iden- tification and genre classification are examples of text classification, as is **sentiment analysis** (classifying a movie or product review as positive or negative) and spam detection (classify- ing an email message as spam or not-spam).
+text classification, also known as categorization: given a text of some kind, decide which of a predefined set of classes it belongs to. Language identification and genre classification are examples of text classification, as is **sentiment analysis** (classifying a movie or product review as positive or negative) and spam detection (classifying an email message as spam or not-spam).
 
 Information retrieval
 
@@ -363,7 +370,7 @@ Question answering
 
 ###22.4 Information Extraction
 - Return useful information from documents.
-- Information extraction is the process of acquiring knowledge by skimming a text and look- ing for occurrences of a particular class of object and for relationships among objects.
+- Information extraction is the process of acquiring knowledge by skimming a text and looking for occurrences of a particular class of object and for relationships among objects.
 
 
 
