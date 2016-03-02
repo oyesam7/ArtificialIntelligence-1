@@ -56,14 +56,12 @@ def ForwardBackward(E):
         b = Backward(b, E[i])
     return sv
 
-print("\nPart B 1: Umbrella was used both on day 1 and day 2\n" + str(Prediction([True, True])))
-# print(
-#     "Part B 2: \n e1:5 = {Umbrella1 = true, Umbrella2 = true, Umbrella3 = false, Umbrella4 = true, Umbrella5 =
-# true} "
-#     "\n" + str(Prediction([True, True, False, True, True])))
-#
-# print("Part C 1 umbrella was used the first two days \n" + str(ForwardBackward([True, True])))
-# print(
-#     "Part C.2: \n e1:5 = {Umbrella1 = true, Umbrella2 = true, Umbrella3 = false, Umbrella4 = true, Umbrella5 =
-# true} "
-#     "\n" + str(ForwardBackward([True, True, False, True, True])))
+print("Part B 1: Umbrella was used both on day 1 and day 2\n" + str(Prediction([True, True])))
+print(
+    "Part B 2: \n e1:5 = {Umbrella1 = true, Umbrella2 = true, Umbrella3 = false, Umbrella4 = true, Umbrella5 = true} "
+    "\n" + str(Prediction([True, True, False, True, True])))
+
+print("Part C 1 umbrella was used the first two days \n" + str(ForwardBackward([True, True])))
+print(
+    "Part C.2: \n e1:5 = {Umbrella1 = true, Umbrella2 = true, Umbrella3 = false, Umbrella4 = true, Umbrella5 = true} "
+    "\n" + str(ForwardBackward([True, True, False, True, True])))
