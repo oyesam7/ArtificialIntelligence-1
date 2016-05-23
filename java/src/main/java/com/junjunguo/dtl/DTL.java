@@ -31,11 +31,11 @@ public class DTL {
             //    else if attributes is empty then return PLURALITY-VALUE(examples)
         else if (attributes == null || attributes.size() == 0) return new Tree(pluralityValue(examples));
         else {
-            //            add a branch to tree with label (A = vk) and subtree subtree
+            //  add a branch to tree with label (A = vk) and subtree subtree
             int A; // the best tree
             //        A (best) ← argmaxa ∈ attributes IMPORTANCE(a, examples)
             if (randImp) A = (int) randomImportance(attributes);
-            else A = (int) gainImportance(attributes, examples);
+            else A = (int) Math.round(gainImportance(attributes, examples));
             //        tree ← a new decision tree with root test A (best)
             tree = new Tree(A);
             attributes.remove((Integer) A);
@@ -51,19 +51,19 @@ public class DTL {
                 Tree subTree = decisionTreeLearning(exs, attributes, examples, randImp);
                 tree.addChild(i, subTree);
             }
-
         }
         return tree;
     }
 
     /**
-     * Gain importance : Gain (A) = B (p / (p + n)) - Remainder(A)
+     * Gain importance : Gain (A) = B (p / (p + n)) - Remainder(A)  :p704 (information gain)
      *
      * @param attributes the attributes
      * @param examples   the examples
      * @return the attribute to split on
      */
     double gainImportance(List<Integer> attributes, List<List<Integer>> examples) {
+        // notion of information gain, is defined in terms of entropy: the fundamental quantity in information theory.
         Map<Integer, Double> entropy = new HashMap<>();
         for (int attribute : attributes) {
             int positiveEx = 0;
@@ -77,7 +77,7 @@ public class DTL {
     }
 
     /**
-     * B double q: B(q) the entropy of a Boolean random variable. B(q) = −(q log2 q + (1 − q) log2(1 − q))
+     * B double q: B(q) the entropy of a Boolean random variable. B(q) = −(q log2 q + (1 − q) log2(1 − q)) : p704
      *
      * @param q the q
      * @return the double

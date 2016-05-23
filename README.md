@@ -1,6 +1,8 @@
 Introduction to Artificial Intelligence
 ==
 
+**[Artificial Intelligence Method](ai_method.md)**
+
 AI is the study of agents that receive percepts from the environment and perform actions. Each such agent implements a function that maps percept that maps percept sequences to actions, and there are different ways to represent these functions, such as rective agents, real-time planners, and decision-theoretic systems.
 Introduction
 --

@@ -9,7 +9,7 @@ def decisionTreeLearning(examples, attributes, parentExamples, rndImp):
     elif sameClassification(examples): return Node(examples[0][-1])
     elif not attributes: return Node(pluralityValue(examples))
     else:
-        if rndImp: A = randomImportance(attributes, examples)
+        if rndImp: A = randomImportance(attributes)
         else:  A = gainImportance(attributes, examples)
 
         tree = Node(A)
@@ -71,20 +71,15 @@ def B(q):
     if q == 0: return 0
     return -(q * math.log(q, 2) + ((1.0 - q) * math.log(1.0 - q, 2)))
 
-def randomImportance(attributes, examples):
+def randomImportance(attributes):
     '''  :return: attribute to split'''
     return attributes[random.randint(0, len(attributes) - 1)]
 
-def run():
-    trainingList = readfile("training")
-    testList = readfile("test")
-    for i in range(2):
-        root = decisionTreeLearning(trainingList, range(7), [], i == 0)
-        print "The root tree:"
-        print root.generateTree()
-        runTest(root, testList)
-        runTest(root, trainingList)
-        print "----"
+def classify(root, line):
+    '''Classify a single entry given the root of the classification tree'''
+    current = root
+    while current.children: current = current.children[int(line[current.data])]
+    return current.data
 
 def readfile(filename):
     '''Read .txt file \n return a two dimensional list'''
@@ -99,10 +94,14 @@ def runTest(tree, data):
             correct += 1
     print "Correct", correct, "out of", len(data), "Rate:", (float(correct) / len(data)) * 100, "%"
 
-def classify(root, line):
-    '''Classify a single entry given the root of the classification tree'''
-    current = root
-    while current.children: current = current.children[int(line[current.data])]
-    return current.data
-
+def run():
+    trainingList = readfile("training")
+    testList = readfile("test")
+    for i in range(2):
+        root = decisionTreeLearning(trainingList, range(7), [], i == 1)
+        print "The root tree: use random importance = ", i == 1
+        print root.generateTree()
+        runTest(root, testList)
+        runTest(root, trainingList)
+        print "----"
 run()
